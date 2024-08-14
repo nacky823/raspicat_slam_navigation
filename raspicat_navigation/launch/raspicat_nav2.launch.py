@@ -94,7 +94,6 @@ def generate_launch_description():
     
     lifecycle_nodes = [
         'map_server',
-        'amcl',
         'controller_server',
         'smoother_server',
         'planner_server',
@@ -113,16 +112,6 @@ def generate_launch_description():
                 package='nav2_map_server',
                 executable='map_server',
                 name='map_server',
-                output='screen',
-                respawn=use_respawn,
-                respawn_delay=2.0,
-                parameters=[configured_params],
-                arguments=['--ros-args', '--log-level', log_level],
-                remappings=remappings),
-            Node(
-                package='nav2_amcl',
-                executable='amcl',
-                name='amcl',
                 output='screen',
                 respawn=use_respawn,
                 respawn_delay=2.0,
@@ -231,12 +220,6 @@ def generate_launch_description():
                 parameters=[configured_params],
                 remappings=remappings),
             ComposableNode(
-                package='nav2_amcl',
-                plugin='nav2_amcl::AmclNode',
-                name='amcl',
-                parameters=[configured_params],
-                remappings=remappings),
-            ComposableNode(
                 package='nav2_lifecycle_manager',
                 plugin='nav2_lifecycle_manager::LifecycleManager',
                 name='lifecycle_manager_localization',
@@ -316,12 +299,12 @@ def generate_launch_description():
     ld.add_action(declare_container_name)
     ld.add_action(declare_use_respawn)
     ld.add_action(declare_log_level)
-    ld.add_action(declare_arg_use_rviz)
+    # ld.add_action(declare_arg_use_rviz)
 
     ld.add_action(load_nodes)
     ld.add_action(load_composable_nodes)
     
-    ld.add_action(rviz2)
+    # ld.add_action(rviz2)
     
     return ld
  
